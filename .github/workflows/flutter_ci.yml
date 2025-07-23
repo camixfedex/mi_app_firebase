@@ -17,7 +17,7 @@ jobs:
       - name: Configurar Flutter
         uses: flutter-actions/setup-flutter@v2
         with:
-            flutter-version: '3.32.6'
+            flutter-version: '3.32.7'
 
       - name: Verificar versión de Flutter
         run: flutter --version
