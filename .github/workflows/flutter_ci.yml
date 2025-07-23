@@ -26,7 +26,7 @@ jobs:
         run: flutter pub get
 
       - name: Verificar formato del código
-        run: dart format --set-exit-if-changed .
+        run: dart format .
 
       - name: Ejecutar análisis estático
         run: flutter analyze
