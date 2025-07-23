@@ -317,8 +317,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade50;
       case ApiRequestStatus.idle:
-      default:
-        return Theme.of(context).cardColor; // Color por defecto del tema
+      return Theme.of(context).cardColor; // Color por defecto del tema
     }
   }
 
@@ -333,8 +332,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade800;
       case ApiRequestStatus.idle:
-      default:
-        return Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black87; // Color por defecto del texto
+      return Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black87; // Color por defecto del texto
     }
   }
 
@@ -349,8 +347,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade200;
       case ApiRequestStatus.idle:
-      default:
-        return Colors.grey.shade300; // Color por defecto del borde
+      return Colors.grey.shade300; // Color por defecto del borde
     }
   }
 }
