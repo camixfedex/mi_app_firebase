@@ -22,12 +22,14 @@ class ApplicationRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Demo de Firebase y API', // Título de la aplicación
-      debugShowCheckedModeBanner: false, // Oculta la etiqueta de "DEBUG" en la esquina
+      debugShowCheckedModeBanner:
+          false, // Oculta la etiqueta de "DEBUG" en la esquina
       theme: ThemeData(
         useMaterial3: true, // Habilita el diseño de Material Design 3
         colorSchemeSeed: Colors.blueAccent, // Define un color base para el tema
       ),
-      home: const AuthenticationScreen(), // La pantalla inicial de la aplicación
+      home:
+          const AuthenticationScreen(), // La pantalla inicial de la aplicación
     );
   }
 }
@@ -77,11 +79,14 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       setState(() {
         _currentUser = user; // Actualiza el usuario actual
         if (user != null) {
-          _currentAuthStatus = AuthStatus.signedIn; // Si hay usuario, está logeado
+          _currentAuthStatus =
+              AuthStatus.signedIn; // Si hay usuario, está logeado
         } else {
-          _currentAuthStatus = AuthStatus.notSignedIn; // Si no hay usuario, no está logeado
+          _currentAuthStatus =
+              AuthStatus.notSignedIn; // Si no hay usuario, no está logeado
         }
-        _apiResponseMessage = ''; // Limpia el mensaje de la API al cambiar el estado de auth.
+        _apiResponseMessage =
+            ''; // Limpia el mensaje de la API al cambiar el estado de auth.
       });
     });
   }
@@ -102,8 +107,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       final credential = await FirebaseAuth.instance.signInAnonymously();
       setState(() {
         _currentUser = credential.user; // Almacena el usuario autenticado
-        _currentAuthStatus = AuthStatus.signedIn; // Actualiza el estado a "logeado"
-        _apiResponseMessage = '¡Autenticación anónima exitosa!'; // Mensaje de éxito
+        _currentAuthStatus =
+            AuthStatus.signedIn; // Actualiza el estado a "logeado"
+        _apiResponseMessage =
+            '¡Autenticación anónima exitosa!'; // Mensaje de éxito
       });
     } catch (e) {
       // Captura cualquier error durante la autenticación.
@@ -121,9 +128,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       await FirebaseAuth.instance.signOut();
       setState(() {
         _currentUser = null; // Limpia el usuario actual
-        _currentAuthStatus = AuthStatus.notSignedIn; // Actualiza el estado a "no logeado"
-        _apiResponseMessage = 'Sesión cerrada correctamente.'; // Mensaje de éxito
-        _currentApiStatus = ApiRequestStatus.idle; // Reinicia el estado de la API
+        _currentAuthStatus =
+            AuthStatus.notSignedIn; // Actualiza el estado a "no logeado"
+        _apiResponseMessage =
+            'Sesión cerrada correctamente.'; // Mensaje de éxito
+        _currentApiStatus =
+            ApiRequestStatus.idle; // Reinicia el estado de la API
       });
     } catch (e) {
       // Captura cualquier error al cerrar sesión.
@@ -140,8 +150,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     // Si el usuario no está autenticado, muestra un mensaje y no procede.
     if (_currentUser == null) {
       setState(() {
-        _currentApiStatus = ApiRequestStatus.requiresAuth; // Estado de "requiere autenticación"
-        _apiResponseMessage = 'Por favor, inicia sesión para obtener el saludo.'; // Mensaje al usuario
+        _currentApiStatus =
+            ApiRequestStatus.requiresAuth; // Estado de "requiere autenticación"
+        _apiResponseMessage =
+            'Por favor, inicia sesión para obtener el saludo.'; // Mensaje al usuario
       });
       return;
     }
@@ -155,7 +167,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       // Realiza una solicitud GET a tu API y establece un tiempo de espera.
       final response = await http
           .get(Uri.parse('http://192.168.214.1:3000/saludo'))
-          .timeout(const Duration(seconds: 7)); // Tiempo de espera de 7 segundos
+          .timeout(
+              const Duration(seconds: 7)); // Tiempo de espera de 7 segundos
 
       // Si la respuesta es exitosa (código 200 OK).
       if (response.statusCode == 200) {
@@ -164,26 +177,30 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         setState(() {
           _currentApiStatus = ApiRequestStatus.success; // Estado de "éxito"
           // Muestra el mensaje de la API o un mensaje por defecto.
-          _apiResponseMessage = data['mensaje'] ?? 'Saludo recibido (sin mensaje específico).';
+          _apiResponseMessage =
+              data['mensaje'] ?? 'Saludo recibido (sin mensaje específico).';
         });
       } else {
         // Si el código de estado no es 200.
         setState(() {
           _currentApiStatus = ApiRequestStatus.failure; // Estado de "fallo"
-          _apiResponseMessage = 'Error en el servidor: Código ${response.statusCode}'; // Muestra el error
+          _apiResponseMessage =
+              'Error en el servidor: Código ${response.statusCode}'; // Muestra el error
         });
       }
     } on TimeoutException {
       // Maneja el caso en que la solicitud excede el tiempo de espera.
       setState(() {
         _currentApiStatus = ApiRequestStatus.failure; // Estado de "fallo"
-        _apiResponseMessage = 'Tiempo de espera agotado. Servidor no responde.'; // Mensaje de timeout
+        _apiResponseMessage =
+            'Tiempo de espera agotado. Servidor no responde.'; // Mensaje de timeout
       });
     } on Exception catch (e) {
       // Captura cualquier otra excepción durante la conexión.
       setState(() {
         _currentApiStatus = ApiRequestStatus.failure; // Estado de "fallo"
-        _apiResponseMessage = 'Error de conexión: $e'; // Muestra el error general
+        _apiResponseMessage =
+            'Error de conexión: $e'; // Muestra el error general
       });
     }
   }
@@ -208,19 +225,24 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Autenticación y API'), // Título de la barra de aplicación
+        title: const Text(
+            'Autenticación y API'), // Título de la barra de aplicación
         centerTitle: true, // Centra el título
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0), // Relleno general para el contenido
+        padding:
+            const EdgeInsets.all(24.0), // Relleno general para el contenido
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Centra los elementos verticalmente
-          crossAxisAlignment: CrossAxisAlignment.stretch, // Estira los elementos horizontalmente
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Centra los elementos verticalmente
+          crossAxisAlignment: CrossAxisAlignment
+              .stretch, // Estira los elementos horizontalmente
           children: [
             // Muestra el estado actual de la autenticación.
             Text(
               _getAuthStatusText(),
-              style: Theme.of(context).textTheme.headlineSmall, // Estilo de texto
+              style:
+                  Theme.of(context).textTheme.headlineSmall, // Estilo de texto
               textAlign: TextAlign.center, // Alineación del texto
             ),
             const SizedBox(height: 20), // Espacio vertical
@@ -239,24 +261,30 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
             // Botones de acción
             FilledButton.icon(
-              onPressed: _handleAnonymousSignIn, // Llama al método de inicio de sesión
+              onPressed:
+                  _handleAnonymousSignIn, // Llama al método de inicio de sesión
               icon: const Icon(Icons.person_outline), // Icono del botón
               label: const Text('Iniciar Sesión (Anónimo)'), // Texto del botón
               style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 12), // Relleno vertical
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12), // Relleno vertical
               ),
             ),
             const SizedBox(height: 16), // Espacio entre botones
 
             OutlinedButton.icon(
-              onPressed: _fetchApiGreeting, // Llama al método para obtener saludo de API
+              onPressed:
+                  _fetchApiGreeting, // Llama al método para obtener saludo de API
               icon: _currentApiStatus == ApiRequestStatus.loading
                   ? const SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2), // Muestra un spinner si está cargando
+                      child: CircularProgressIndicator(
+                          strokeWidth:
+                              2), // Muestra un spinner si está cargando
                     )
-                  : const Icon(Icons.cloud_download), // Icono si no está cargando
+                  : const Icon(
+                      Icons.cloud_download), // Icono si no está cargando
               label: const Text('Obtener Mensaje de Servidor'),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -267,11 +295,14 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             // Botón de cerrar sesión (solo visible si el usuario está logeado)
             if (_currentUser != null)
               TextButton.icon(
-                onPressed: _handleUserSignOut, // Llama al método de cerrar sesión
+                onPressed:
+                    _handleUserSignOut, // Llama al método de cerrar sesión
                 icon: const Icon(Icons.logout), // Icono de cerrar sesión
                 label: const Text('Cerrar Sesión'),
                 style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.error, // Color de texto de error
+                  foregroundColor: Theme.of(context)
+                      .colorScheme
+                      .error, // Color de texto de error
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
@@ -280,18 +311,23 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
             // Contenedor para mostrar el mensaje de la API
             Container(
-              padding: const EdgeInsets.all(16), // Relleno interno del contenedor
+              padding:
+                  const EdgeInsets.all(16), // Relleno interno del contenedor
               decoration: BoxDecoration(
-                color: _getApiMessageBackgroundColor(), // Color de fondo dinámico
+                color:
+                    _getApiMessageBackgroundColor(), // Color de fondo dinámico
                 borderRadius: BorderRadius.circular(10), // Bordes redondeados
                 border: Border.all(
-                  color: _getApiMessageBorderColor(), // Color del borde dinámico
+                  color:
+                      _getApiMessageBorderColor(), // Color del borde dinámico
                   width: 1,
                 ),
               ),
               child: Text(
                 // Muestra un mensaje por defecto o el mensaje de la API.
-                _apiResponseMessage.isEmpty ? 'Aquí aparecerán los mensajes.' : _apiResponseMessage,
+                _apiResponseMessage.isEmpty
+                    ? 'Aquí aparecerán los mensajes.'
+                    : _apiResponseMessage,
                 style: TextStyle(
                   fontSize: 16,
                   color: _getApiMessageTextColor(), // Color del texto dinámico
@@ -317,7 +353,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade50;
       case ApiRequestStatus.idle:
-      return Theme.of(context).cardColor; // Color por defecto del tema
+        return Theme.of(context).cardColor; // Color por defecto del tema
     }
   }
 
@@ -332,7 +368,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade800;
       case ApiRequestStatus.idle:
-      return Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black87; // Color por defecto del texto
+        return Theme.of(context).textTheme.bodyLarge?.color ??
+            Colors.black87; // Color por defecto del texto
     }
   }
 
@@ -347,7 +384,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       case ApiRequestStatus.loading:
         return Colors.blue.shade200;
       case ApiRequestStatus.idle:
-      return Colors.grey.shade300; // Color por defecto del borde
+        return Colors.grey.shade300; // Color por defecto del borde
     }
   }
 }
