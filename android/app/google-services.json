@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "679471760310",
+    "project_id": "miappfirebase-ce76b",
+    "storage_bucket": "miappfirebase-ce76b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679471760310:android:813f395cce9747f7e23717",
+        "android_client_info": {
+          "package_name": "com.example.mi_app_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAawfPMiw4Ec-aSRzl9APy4ldOB_lnRD2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
